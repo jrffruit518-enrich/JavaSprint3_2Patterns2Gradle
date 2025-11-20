@@ -1,0 +1,24 @@
+@startuml
+interface Subject{
++register(Observer):void
++remove(Observer):void
++notify():void
+}
+class broker implements subject{
+- observers ： List <Observer>
+}
+
+interface Observer{
+update(Object data):void
+}
+
+class stockAgency implements observer
+
+
+class BrokerageFirm implements observer
+
+class client
+client --> subject
+broker o--> observer
+
+@enduml

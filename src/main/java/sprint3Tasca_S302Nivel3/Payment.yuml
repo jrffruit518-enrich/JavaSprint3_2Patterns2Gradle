@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam nodesep 60
+skinparam ranksep 60
+
+interface PaymentMethod {
+    +pay(amount: double, callback: PaymentCallback): void
+}
+
+interface PaymentCallback {
+    +onPaymentSuccess(): void
+    +onPaymentFailed(): void
+}
+
+class CreditPay implements PaymentMethod
+class PayPal implements PaymentMethod
+class BankAccountPay implements PaymentMethod
+
+class PaymentGateway {
+    +processPayment(method: PaymentMethod, amount: double, callback: PaymentCallback): void
+}
+
+class ShoeStore implements PaymentCallback {
+    +checkout(method: PaymentMethod, amount: double)
+    +onPaymentSuccess()
+    +onPaymentFailed()
+}
+
+' Relationships
+ShoeStore --> PaymentGateway : uses
+PaymentGateway ..> PaymentMethod : forwards request to
+PaymentMethod --> PaymentCallback : calls back after payment
+
+note right of PaymentMethod::pay
+  Inside concrete payment classes:
+  After processing the payment,
+  invoke callback.onPaymentSuccess()
+  or callback.onPaymentFailed()
+end note
+
+note bottom of PaymentGateway
+  The gateway only forwards the request
+  and does not handle the result.
+  Control is returned via the callback.
+end note
+
+@enduml

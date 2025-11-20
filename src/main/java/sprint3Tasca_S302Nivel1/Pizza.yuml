@@ -1,0 +1,30 @@
+@startuml
+class Pizza{
+int size
+String dough
+List <String> topping
+}
+
+interface PizzaBuilder{
++buildSize(int):PizzaBuilder
++buildDough(String):PizzaBuilder
++addTopping(String):PizzaBuilder
++getResult(): Pizza
+}
+class HawaiianPizzaBuilder implements PizzaBuilder
+class VeggiePizzaBuilder implements PizzaBuilder
+
+class MestrePizzer{
+-builder: PizzaBuilder
++setBuilder(builder: PizzaBuilder)
++buildPizza(): Pizza
+}
+
+class Client
+Client --> MestrePizzer
+MestrePizzer o--> PizzaBuilder
+PizzaBuilder --> Pizza
+
+
+@enduml
+}
