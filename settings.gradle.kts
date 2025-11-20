@@ -1,0 +1,1 @@
+rootProject.name = "JavaSprint3_2Patterns2Gradle"
