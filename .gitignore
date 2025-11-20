@@ -62,3 +62,4 @@ bin/
 
 src/main/java/com/example/
 src/test/java/com/example/
+.idea/
